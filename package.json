@@ -11,7 +11,28 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",
+    "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.1.2",
+    "eslint": "^8.56.0",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.{js,astro}": [
+      "prettier  --config .prettierrc --write",
+      "eslint --fix --config .eslintrc.yml --ext .js,.vue ",
+      "git add"
+    ],
+    "*.json": [
+      "prettier  --config .prettierrc --write",
+      "git add"
+    ],
+    "*.sass": [
+      "sass-lint --config .sass-lint.yml -v",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "sass": "^1.69.7"
   }
 }
