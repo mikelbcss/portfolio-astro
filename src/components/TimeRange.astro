@@ -1,0 +1,33 @@
+---
+import DateUtils from '../utils/DateUtils';
+import Time from './Time.astro';
+
+const { dateStart, dateEnd, size = 'normal' } = Astro.props;
+---
+
+<div class=`portfolio-time-range portfolio-time-range--${size}`>
+    <Time time={dateStart} size="normal" />
+    -
+    {
+        () => {
+            if (isNaN(new Date(dateEnd).getTime())) {
+                return <p>{dateEnd}</p>;
+            } else {
+                return <Time time={dateEnd} size="normal" />;
+            }
+        }
+    }
+</div>
+<style lang="sass">
+    $icon-sizes: ('small': 0.75em, 'normal': 1em, 'medium': 1.25em, 'large': 1.5em)
+
+    .portfolio-time-range
+        display: flex
+        flex-direction: row
+        font-size: var(--time-range-size)
+        column-gap: 1em
+
+        @each $key, $value in $icon-sizes
+            &--#{$key}
+                #{--time-range-size}: $value
+</style>
