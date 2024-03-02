@@ -1,0 +1,21 @@
+---
+const { color = 'blue', xlink = '', size = 'normal' } = Astro.props;
+---
+
+<svg class=`portfolio-icon portfolio-icon--${size}` style=`--icon-color:${color}`>
+    <use href=`/icons/${xlink}.svg#${xlink}`></use>
+</svg>
+
+<style lang="sass">
+    $icon-sizes: ('small': 0.75em, 'normal': 1em, 'medium': 1.25em, 'large': 1.5em)
+
+    .portfolio-icon
+        width: 1em
+        height: 1em
+        font-size: var(--icon-size)
+        fill: var(--icon-color, red)
+
+        @each $key, $value in $icon-sizes
+            &--#{$key}
+                #{--icon-size}: $value
+</style>
