@@ -1,0 +1,89 @@
+---
+import TimeRange from './TimeRange.astro';
+
+interface Experience {
+    title: string;
+    dateStart: string;
+    dateEnd: string;
+    description: string[];
+}
+
+interface Props {
+    experience: Experience;
+    type: string;
+}
+
+const { experience, type = 'active' } = Astro.props;
+---
+
+<div class=`portfolio-timeline-item portfolio-timeline-item--${type}`>
+    <TimeRange
+        class="portfolio-timeline-item__range"
+        dateStart={experience.dateStart}
+        dateEnd={experience.dateEnd}
+        size="small"
+    />
+    <p class="portfolio-timeline-item__title">
+        <strong>{experience.title}</strong>
+    </p>
+    <ol class="portfolio-timeline-item__description">
+        {
+            experience.description.map(description => (
+                <li class="portfolio-timeline-item__description-item">
+                    <span>{description}</span>
+                </li>
+            ))
+        }
+    </ol>
+</div>
+<style lang="sass">
+    .portfolio-timeline-item
+        padding-left: 1.6em
+        position: relative
+
+        &--active
+            #{--bullet-color}: purple
+        &--disabled
+            #{--bullet-color}: gray
+
+        &::before,
+        &--current::after
+            position: absolute
+            z-index: 2
+            content: ''
+            aspect-ratio: 1/1
+            border-radius: 20px
+
+        &::before
+            left: calc(1.5em / -2 + 2px)
+            top: 0
+            width: 1.5em
+            background-color: var(--bullet-color)
+
+        &--current
+            #{--bullet-color}: purple
+            &::after
+                #{--inner-bullet-width}: 1em
+                left: calc(var(--inner-bullet-width) / -2 + 2px)
+                top: calc(var(--inner-bullet-width) / -2 + 2px)
+                margin-top: 10px
+                width: var(--inner-bullet-width)
+                background-color: #020617
+        &__range
+            color: grey
+
+        &__title
+            margin-top: 1em
+            & > *
+                font-size: 1.25em
+
+        &__description
+            margin-top: 1em
+
+        &__description-item
+            margin-top: 0.75em
+            margin-left: 1.5em
+            list-style-type: circle
+            & > li
+                font-size: 1em
+</style>
