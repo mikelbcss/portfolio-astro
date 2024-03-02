@@ -1,0 +1,23 @@
+---
+const { bgColor = 'white', color = 'black', title, link } = Astro.props;
+---
+
+<p class="portfolio-badge" style=`--badge-bg-color:${bgColor}; --badge-color:${color}`>
+    <span class="portfolio-badge__title">{title}</span>
+</p>
+
+<style lang="sass">
+    .portfolio-badge
+        background: var(--badge-bg-color, #fff)
+        color: var(--badge-color, #000)
+        display: flex
+        padding: 0.3em 0.5em
+        border-radius: 99999px
+        border: 1px solid var(--badge-color)
+        min-width: 6em
+        justify-content: center
+
+        &__title
+            font-size: 0.75em
+            line-height: 1em
+</style>
