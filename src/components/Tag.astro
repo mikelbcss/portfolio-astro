@@ -1,0 +1,37 @@
+---
+import Icon from './Icon.astro';
+
+const { bgColor = 'white', color = 'black', icon, title, link } = Astro.props;
+---
+
+<a
+    class="portfolio-tag"
+    style=`--tag-bg-color:${bgColor}; --tag-color:${color}`
+    href={link}
+    target="_blank"
+    rel="noopener"
+>
+    <Icon xlink=`${icon}` , color=`${color}` , size="small" />
+    <span class="portfolio-tag__title">{title}</span>
+</a>
+
+<style lang="sass">
+    .portfolio-tag
+        display: flex
+        column-gap: 0.5em
+        align-items: center
+        background: var(--tag-bg-color, #fff)
+        color: var(--tag-color, #000)
+        width: fit-content
+        padding: 0.25em 0.5em
+        border-radius: 99999px
+        min-width: 4em
+        transition: transform 0.25s
+
+        &:hover
+            transform: scale(1.1)
+
+        &__title
+            font-size: 0.6em
+            line-height: 1em
+</style>
