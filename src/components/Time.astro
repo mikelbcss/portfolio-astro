@@ -1,0 +1,21 @@
+---
+import DateUtils from '../utils/DateUtils';
+
+const { time, size = 'normal' } = Astro.props;
+
+const locale = Astro.currentLocale;
+const dateTime = new Date(time).toISOString();
+const formattedDate = DateUtils.getCorrectDate(new Date(time), locale);
+---
+
+<time class=`portfolio-time portfolio-time--${size}` datetime={dateTime}>{formattedDate}</time>
+
+<style lang="sass">
+    $icon-sizes: ('small': 0.75em, 'normal': 1em, 'medium': 1.25em, 'large': 1.5em)
+
+    .portfolio-time
+        font-size: var(--time-size)
+        @each $key, $value in $icon-sizes
+            &--#{$key}
+                #{--time-size}: $value
+</style>
