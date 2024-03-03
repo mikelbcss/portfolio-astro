@@ -13,7 +13,6 @@ const { color = 'blue', xlink = '', size = 'normal' } = Astro.props;
         width: 1em
         height: 1em
         font-size: var(--icon-size)
-        fill: var(--icon-color, red)
 
         @each $key, $value in $icon-sizes
             &--#{$key}
