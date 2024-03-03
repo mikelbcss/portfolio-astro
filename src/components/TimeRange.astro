@@ -25,7 +25,7 @@ const { dateStart, dateEnd, size = 'normal' } = Astro.props;
         display: flex
         flex-direction: row
         font-size: var(--time-range-size)
-        column-gap: 1em
+        column-gap: 0.5em
 
         @each $key, $value in $icon-sizes
             &--#{$key}
