@@ -1,0 +1,7 @@
+---
+const { class: className, id } = Astro.props;
+---
+
+<footer id={id} class=`${className}`>
+    <slot />
+</footer>
