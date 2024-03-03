@@ -23,9 +23,9 @@ const { experience, type = 'active' } = Astro.props;
         dateEnd={experience.dateEnd}
         size="small"
     />
-    <p class="portfolio-timeline-item__title">
+    <a class="portfolio-timeline-item__title" href="#">
         <strong>{experience.title}</strong>
-    </p>
+    </a>
     <ol class="portfolio-timeline-item__description">
         {
             experience.description.map(description => (
@@ -38,11 +38,14 @@ const { experience, type = 'active' } = Astro.props;
 </div>
 <style lang="sass">
     .portfolio-timeline-item
-        padding-left: 1.6em
+        padding-left: 1.75em
         position: relative
+        display: flex
+        flex-direction: column
 
         &--active
-            #{--bullet-color}: purple
+            #{--bullet-color}: #d822ff
+
         &--disabled
             #{--bullet-color}: gray
 
@@ -56,25 +59,33 @@ const { experience, type = 'active' } = Astro.props;
 
         &::before
             left: calc(1.5em / -2 + 2px)
-            top: 0
+            top: calc(1.5em / -4)
             width: 1.5em
             background-color: var(--bullet-color)
 
         &--current
-            #{--bullet-color}: purple
+            #{--bullet-color}: #d822ff
+
             &::after
                 #{--inner-bullet-width}: 1em
                 left: calc(var(--inner-bullet-width) / -2 + 2px)
-                top: calc(var(--inner-bullet-width) / -2 + 2px)
+                top: calc(var(--inner-bullet-width) / -2 + 2px - 1.5em / 4)
                 margin-top: 10px
                 width: var(--inner-bullet-width)
                 background-color: #020617
+
         &__range
             color: grey
 
         &__title
             margin-top: 1em
-            & > *
+            color: #d822ff
+            width: fit-content
+
+            &:hover
+                color: purple
+
+            & > strong
                 font-size: 1.25em
 
         &__description
@@ -84,6 +95,8 @@ const { experience, type = 'active' } = Astro.props;
             margin-top: 0.75em
             margin-left: 1.5em
             list-style-type: circle
+            text-wrap: pretty
+
             & > li
                 font-size: 1em
 </style>

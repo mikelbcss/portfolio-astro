@@ -9,17 +9,18 @@ interface Experience {
 
 interface Props {
     experience: Experience[];
-    step: any | number;
+    step?: any | number;
+    class?: String;
 }
 
-const { experience, step = -1 } = Astro.props;
+const { experience, step = -1, class: className } = Astro.props;
 
 let currentStep: number = step;
 let activeStepsHeight: number = 0;
 if (step === -1) {
-    currentStep = experience.length - 1;
+    currentStep = 0;
 }
-activeStepsHeight = (currentStep / experience.length) * 100;
+activeStepsHeight = ((currentStep + experience.length) / experience.length) * 100;
 ---
 
 <script lang="ts" is:inline>
@@ -31,18 +32,22 @@ activeStepsHeight = (currentStep / experience.length) * 100;
         }, 500);
     };
 </script>
-<ol class=`portfolio-timeline` style=`--active-step-height:${activeStepsHeight}; --steps:${experience.length}`>
+<ol
+    class=`portfolio-timeline ${className}`
+    style=`--active-step-height:${activeStepsHeight}; --steps:${experience.length}`
+    role="list"
+>
     {
         experience.map((item, index) => {
             let type = 'active';
             if (index === currentStep) {
                 type = 'current';
             }
-            if (index > currentStep) {
+            if (index < currentStep) {
                 type = 'disabled';
             }
             return (
-                <li class="portfolio-timeline__item">
+                <li class="portfolio-timeline__item" role="listitem">
                     <TimelineItem experience={item} type={type} />
                 </li>
             );
@@ -55,10 +60,11 @@ activeStepsHeight = (currentStep / experience.length) * 100;
         position: relative
         display: flex
         flex-direction: column
+        padding-top: 2em
 
         &::before,
         &::after
-            top: 0
+            bottom: 0
             position: absolute
             content: ''
             width: 4px
@@ -71,10 +77,14 @@ activeStepsHeight = (currentStep / experience.length) * 100;
         &::after
             height: var(--active-height, 0)
             transition: height 1s ease-out
-            background: purple
+            background: #d822ff
+
+            @media (prefers-reduced-motion: reduce)
+                &
+                    transition: unset
 
         &--loaded
-            #{--active-height}: calc(var(--active-step-height) * 1% + 2.5em * var(--active-step-height) / 100)
+            #{--active-height}: calc(var(--active-step-height) * 1%)
 
         &__item
             height: max-content
