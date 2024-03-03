@@ -1,74 +1,32 @@
 ---
+//Componentes
 import Layout from '../layouts/Layout.astro';
 import Timeline from '../components/Timeline.astro';
 import Badge from '../components/Badge.astro';
 import Tag from '../components/Tag.astro';
+import Section from '../components/Section.astro';
+import Icon from '../components/Icon.astro';
+//Traducciones
 import i18n from '../utils/i18n';
-
-interface Experience {
-    title: string;
-    dateStart: string;
-    dateEnd: string;
-    description: string[];
-}
+//Enums
+import { EXPERIENCE } from '../enums/experience';
+import { PROJECTS } from '../enums/projects';
+import { SOCIAL_PILLS } from '../enums/social-pills';
 
 const startDate = new Date('2021-01-01');
 const currentDate = new Date();
 
 const experienceTime = currentDate.getFullYear() - startDate.getFullYear();
-const socialPills = [
-    { title: 'LinkedIn', icon: 'linkedin', link: '' },
-    { title: 'Github', icon: 'github', link: '' },
-    { title: 'Email', icon: 'gmail', link: 'mailto:mikelbcss@gmail.com?Subject=Contactar' }
-];
-const experience: Experience[] = [
-    {
-        dateStart: '2019-02-01',
-        dateEnd: '2019-06-01',
-        title: 'Enagas',
-        description: [
-            'Instrumentación y comunicaciones Gasoducto Tendrara en Marruecos.',
-            'Actualización Maqueta de instrumentación y comunicaciones en Zaragoza'
-        ]
-    },
-    {
-        dateStart: '2021-02-01',
-        dateEnd: '2021-09-01',
-        title: 'Deloitte',
-        description: [
-            'Realizando tareas de back con JSP y empleando el CMS Oracle WebCenter Sites, creando múltiples páginas web',
-            'Realizando tareas de front nativo bajo demanda de los diferentes clientes.'
-        ]
-    },
-    {
-        dateStart: '2021-09-01',
-        dateEnd: '2022-06-01',
-        title: 'UVa - UID',
-        description: [
-            'Realizando una tesis con Inteligencia Artificial sobre un clasificador de semillas.',
-            'Realizando en paralelo, como trabajo, proyectos de front dentro del laboratorio para diferentes clientes con Angular, Ionic y desarrollo web nativo.'
-        ]
-    },
-    {
-        dateStart: '2022-06-12',
-        dateEnd: 'Actualmente',
-        title: 'RSI',
-        description: [
-            'Desarrollo del frontend de proyectos de las diferentes aplicaciones de RSI con el Framework Vue, tanto maqueta como JavaScript.',
-            'Desarrollo de un plan de onboarding sobre cómo se trabaja en el equipo de front de RSI, con el fin de formar a los nuevos perfiles.'
-        ]
-    }
-];
+
 const currentLocale = Astro.currentLocale;
 ---
 
 <Layout
     title=`Portfolio de Mikel Barrio - Desarrollador y Programador Frontend con +${experienceTime}años de experiencia`
-    ,
     description="Contacta a Mikel Barrio"
 >
-    <>
-        <section class="mt-40">
+    <main>
+        <Section id="top" class="mt-40">
             <div class="flex items-center gap-x-4">
                 <h1 class="flex flex-row text-white text-5xl">
                     <strong>Hey, soy Mikel</strong>
@@ -80,23 +38,33 @@ const currentLocale = Astro.currentLocale;
                     link="https://linkedin.com/in/mikel-barrio-conde"
                 />
             </div>
-            <h2 class="text-xl mt-6">
+            <div class="text-xl mt-6">
                 <span class="">+{experienceTime} años de experiencia.</span>
                 <span class="text-yellow-100/90">Desarrollador Fronted.</span>
                 <span class="opacity-80"> De Valladolid, España.</span>
                 <ul class="flex flex-row mt-4 gap-x-4">
                     {
-                        socialPills.map(socialPill => (
+                        SOCIAL_PILLS.map(socialPill => (
                             <li>
                                 <Tag title={socialPill.title} icon={socialPill.icon} link={socialPill.link} />
                             </li>
                         ))
                     }
                 </ul>
+            </div>
+        </Section>
+        <Section id="experiencia" class="mt-24">
+            <h2 class="flex flex-row items-center gap-x-4 text-2xl">
+                <Icon xlink="briefcase" , color="white" , size="large" />
+                <strong>Experiencia laboral</strong>
             </h2>
-        </section>
-        <section class="mt-16">
-            <Timeline experience={experience} step={-1} />
-        </section>
-    </>
+            <Timeline class="mt-8" experience={EXPERIENCE} />
+        </Section>
+        <Section id="proyectos" class="mt-24">
+            <h2 class="flex flex-row items-center gap-x-4 text-2xl">
+                <Icon xlink="briefcase" , color="white" , size="large" />
+                <strong>Proyectos</strong>
+            </h2>
+        </Section>
+    </main>
 </Layout>

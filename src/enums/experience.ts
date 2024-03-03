@@ -5,7 +5,7 @@ interface Experience {
     description: string[];
 }
 
-export const PROJECTS: Experience[] = [
+export const EXPERIENCE: Experience[] = [
 {
         dateStart: '2022-06-12',
         dateEnd: 'Actualmente',
